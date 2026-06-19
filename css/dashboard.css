@@ -1,0 +1,317 @@
+:root{
+    --primary:#1E3A5F;
+    --secondary:#4F6D7A;
+    --accent:#E09F3E;
+    --background:#F8F9FA;
+    --text:#212529;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:var(--background);
+    font-family:'Segoe UI',sans-serif;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+    width:260px;
+    height:100vh;
+    position:fixed;
+    left:0;
+    top:0;
+
+    background:var(--primary);
+    color:white;
+
+    padding:20px;
+
+    overflow-y:auto;
+}
+
+.logo{
+    font-size:1.3rem;
+    font-weight:700;
+    margin-bottom:25px;
+}
+
+.sidebar hr{
+    border-color:rgba(255,255,255,.2);
+}
+
+.sidebar a{
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    text-decoration:none;
+    color:white;
+
+    padding:12px 15px;
+
+    border-radius:10px;
+
+    margin-bottom:8px;
+
+    transition:.3s;
+}
+
+.sidebar a:hover{
+    background:rgba(255,255,255,.15);
+}
+
+.sidebar a.active{
+    background:var(--accent);
+}
+
+/* MAIN */
+
+.main{
+    margin-left:260px;
+}
+
+/* NAVBAR */
+
+.topbar{
+    background:white;
+
+    height:75px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:0 30px;
+
+    box-shadow:0 2px 10px rgba(0,0,0,.05);
+}
+
+.topbar-title{
+    font-weight:700;
+}
+
+.profile{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-weight:600;
+}
+
+/* DROPDOWN MENU */
+
+/* =========================
+   DROPDOWN MENU
+========================= */
+
+.menu-group{
+
+    margin-bottom:8px;
+}
+
+/* HEADER MENU */
+
+.menu-toggle{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:12px 15px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    color:white;
+
+    transition:0.3s;
+}
+
+.menu-toggle:hover{
+
+    background:rgba(255,255,255,.15);
+}
+
+/* PANAH */
+
+.arrow{
+
+    transition:
+        transform 0.3s ease;
+}
+
+.arrow.rotate{
+
+    transform:rotate(180deg);
+}
+
+/* SUB MENU */
+
+.submenu{
+
+    max-height:0;
+
+    overflow:hidden;
+
+    margin-left:15px;
+
+    transition:
+        max-height 0.35s ease;
+}
+
+/* OPEN */
+
+.submenu.show{
+
+    max-height:200px;
+}
+
+/* ITEM */
+
+.submenu a{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:10px 15px;
+
+    margin-top:5px;
+
+    border-radius:8px;
+
+    text-decoration:none;
+
+    color:white;
+
+    background:rgba(255,255,255,.05);
+
+    opacity:0;
+
+    transform:translateY(-8px);
+
+    transition:
+        opacity .3s ease,
+        transform .3s ease,
+        background .3s ease;
+}
+
+/* SAAT TERBUKA */
+
+.submenu.show a{
+
+    opacity:1;
+
+    transform:translateY(0);
+}
+
+.submenu a:hover{
+
+    background:
+    rgba(255,255,255,.15);
+}
+
+/* SEARCH */
+
+.search-box{
+    border-radius:12px;
+}
+
+/* STATS */
+
+.stats-card{
+    border:none;
+    border-radius:18px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.05);
+
+    transition:.3s;
+}
+
+.stats-card:hover{
+    transform:translateY(-4px);
+}
+
+.stats-icon{
+    width:55px;
+    height:55px;
+
+    border-radius:15px;
+
+    background:rgba(30,58,95,.1);
+
+    color:var(--primary);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:1.3rem;
+}
+
+.stats-number{
+    font-size:1.8rem;
+    font-weight:700;
+}
+
+/* SECTION */
+
+.section-card{
+    border:none;
+    border-radius:18px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.05);
+}
+
+.section-title{
+    color:var(--primary);
+    font-weight:700;
+}
+
+/* BUTTON */
+
+.btn-primary-custom{
+    background:var(--primary);
+    color:white;
+    border:none;
+}
+
+.btn-primary-custom:hover{
+    background:#17304d;
+    color:white;
+}
+
+.btn-accent{
+    background:var(--accent);
+    color:white;
+    border:none;
+}
+
+.btn-accent:hover{
+    background:#c98c32;
+    color:white;
+}
+
+/* MOBILE */
+
+@media(max-width:992px){
+
+    .sidebar{
+        width:100%;
+        height:auto;
+        position:relative;
+    }
+
+    .main{
+        margin-left:0;
+    }
+}

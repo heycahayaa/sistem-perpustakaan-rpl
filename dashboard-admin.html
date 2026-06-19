@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dashboard Admin</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<link rel="stylesheet" href="css/dashboard.css">
+</head>
+<script src="js/dashboard.js"></script>
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+    <div class="logo">
+        📚 Perpustakaan
+    </div>
+
+    <hr>
+
+    <a href="#" class="active">
+        <i class="fa-solid fa-house"></i>
+        Dashboard
+    </a>
+
+    <!-- BUKU -->
+
+    <div class="menu-group">
+
+        <div class="menu-toggle"
+             onclick="toggleMenu(this,'bukuMenu')">
+
+            <span>
+                <i class="fa-solid fa-book"></i>
+                Buku
+            </span>
+
+            <i class="fa-solid fa-chevron-down arrow"></i>
+
+        </div>
+
+        <div class="submenu" id="bukuMenu">
+
+            <a href="#">
+                <i class="fa-solid fa-list"></i>
+                Daftar Buku
+            </a>
+
+            <a href="#">
+                <i class="fa-solid fa-plus"></i>
+                Tambah Buku
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- ANGGOTA -->
+
+    <div class="menu-group">
+
+        <div class="menu-toggle"
+             onclick="toggleMenu(this,'anggotaMenu')">
+
+            <span>
+                <i class="fa-solid fa-users"></i>
+                Anggota
+            </span>
+
+            <i class="fa-solid fa-chevron-down arrow"></i>
+
+        </div>
+
+        <div class="submenu" id="anggotaMenu">
+
+            <a href="#">
+                <i class="fa-solid fa-address-book"></i>
+                Daftar Anggota
+            </a>
+
+            <a href="#">
+                <i class="fa-solid fa-user-plus"></i>
+                Tambah Anggota
+            </a>
+
+        </div>
+
+    </div>
+
+    <a href="#">
+        <i class="fa-solid fa-file-lines"></i>
+        Laporan
+    </a>
+
+    <a href="#">
+        <i class="fa-solid fa-user"></i>
+        Profil
+    </a>
+
+    <a href="login.html">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        Logout
+    </a>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+    <div class="topbar">
+
+        <h4 class="topbar-title">
+            Dashboard Admin
+        </h4>
+
+        <div class="profile">
+            <i class="fa-solid fa-circle-user"></i>
+            Admin
+        </div>
+
+    </div>
+
+    <div class="container-fluid p-4">
+
+        <!-- SEARCH -->
+
+        <input
+        class="form-control search-box mb-4"
+        placeholder="Cari buku...">
+
+        <!-- STATS -->
+
+        <div class="row g-4">
+
+            <div class="col-lg-3">
+
+                <div class="card stats-card p-3">
+
+                    <div class="d-flex justify-content-between">
+
+                        <div>
+
+                            <p>Total Buku</p>
+                            <div class="stats-number">512</div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-3">
+
+                <div class="card stats-card p-3">
+
+                    <p>Total Anggota</p>
+
+                    <div class="stats-number">
+                        125
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-3">
+
+                <div class="card stats-card p-3">
+
+                    <p>Buku Dipinjam</p>
+
+                    <div class="stats-number">
+                        38
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-3">
+
+                <div class="card stats-card p-3">
+
+                    <p>Terlambat</p>
+
+                    <div class="stats-number">
+                        6
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- CONTENT -->
+
+        <div class="row mt-4">
+
+            <div class="col-lg-6">
+
+                <div class="card section-card p-4">
+
+                    <h5 class="section-title">
+                        Buku Terbaru
+                    </h5>
+
+                    <ul>
+                        <li>Algoritma dan Pemrograman</li>
+                        <li>Basis Data</li>
+                        <li>Pemrograman Web</li>
+                    </ul>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-6">
+
+                <div class="card section-card p-4">
+
+                    <h5 class="section-title">
+                        Aktivitas Terbaru
+                    </h5>
+
+                    <ul>
+                        <li>Andi meminjam buku</li>
+                        <li>Budi mengembalikan buku</li>
+                        <li>Siti terlambat 2 hari</li>
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
