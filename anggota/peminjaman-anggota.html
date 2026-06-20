@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Peminjaman Saya</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/book-management.css">
+    <link rel="stylesheet" href="../css/loan.css">
+</head>
+
+<body>
+
+    <div class="sidebar">
+
+        <div class="logo">
+            <i class="fa-solid fa-book-open-reader"></i>
+            Perpustakaan
+        </div>
+
+        <hr>
+
+        <a href="dashboard-anggota.html">
+            <i class="fa-solid fa-house"></i>
+            Dashboard
+        </a>
+
+        <a href="daftar-buku.html">
+            <i class="fa-solid fa-book"></i>
+            Daftar Buku
+        </a>
+
+        <a href="cari-buku.html">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            Cari Buku
+        </a>
+
+        <a href="peminjaman-saya.html" class="active">
+            <i class="fa-solid fa-book-open"></i>
+            Peminjaman Saya
+        </a>
+
+        <a href="#">
+            <i class="fa-solid fa-clock-rotate-left"></i>
+            Riwayat
+        </a>
+
+        <a href="profile-anggota.html">
+            <i class="fa-solid fa-user"></i>
+            Profil
+        </a>
+
+        <a href="../login.html">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            Logout
+        </a>
+
+    </div>
+
+    <div class="main">
+
+        <div class="topbar">
+
+            <h4 class="topbar-title">
+                Peminjaman Saya
+            </h4>
+
+            <div class="profile">
+                <i class="fa-solid fa-circle-user"></i>
+                Anggota
+            </div>
+
+        </div>
+
+        <div class="container-fluid p-4">
+
+            <div class="page-header">
+
+                <div>
+                    <p class="page-kicker">Status Sirkulasi</p>
+                    <h2>Lihat Status Peminjaman</h2>
+                    <p class="page-description">
+                        Masukkan nama kamu untuk melihat buku yang sedang dan pernah dipinjam.
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="card section-card p-4 mb-4">
+                <div class="input-group my-loan-search">
+                    <span class="input-group-text">
+                        <i class="fa-solid fa-user"></i>
+                    </span>
+                    <input type="text" class="form-control" id="myLoanName"
+                        placeholder="Masukkan nama lengkap kamu">
+                </div>
+            </div>
+
+            <div id="myLoanHint" class="state-placeholder">
+                <i class="fa-solid fa-book-open"></i>
+                <h5>Masukkan nama untuk melihat status</h5>
+                <p>Riwayat dan status peminjaman aktif akan tampil di sini.</p>
+            </div>
+
+            <div id="myLoanEmpty" class="state-placeholder d-none">
+                <i class="fa-solid fa-circle-question"></i>
+                <h5>Tidak ada data peminjaman</h5>
+                <p>Nama yang dimasukkan belum memiliki riwayat peminjaman.</p>
+            </div>
+
+            <div id="myLoanList"></div>
+
+        </div>
+
+    </div>
+
+    <script src="../js/dashboard.js"></script>
+    <script src="../js/books.js"></script>
+    <script src="../js/peminjaman.js"></script>
+</body>
+
+</html>
