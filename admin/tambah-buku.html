@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Tambah Buku</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/book-management.css">
+</head>
+
+<body>
+
+    <div class="sidebar">
+
+        <div class="logo">
+            <i class="fa-solid fa-book-open-reader"></i>
+            Perpustakaan
+        </div>
+
+        <hr>
+
+        <a href="dashboard-admin.html">
+            <i class="fa-solid fa-house"></i>
+            Dashboard
+        </a>
+
+        <div class="menu-group">
+
+            <div class="menu-toggle"
+                onclick="toggleMenu(this,'bukuMenu')">
+
+                <span>
+                    <i class="fa-solid fa-book"></i>
+                    Buku
+                </span>
+
+                <i class="fa-solid fa-chevron-down arrow rotate"></i>
+
+            </div>
+
+            <div class="submenu show" id="bukuMenu">
+
+                <a href="daftar-buku.html">
+                    <i class="fa-solid fa-list"></i>
+                    Daftar Buku
+                </a>
+
+                <a href="tambah-buku.html" class="active">
+                    <i class="fa-solid fa-plus"></i>
+                    Tambah Buku
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="menu-group">
+
+            <div class="menu-toggle"
+                onclick="toggleMenu(this,'anggotaMenu')">
+
+                <span>
+                    <i class="fa-solid fa-users"></i>
+                    Anggota
+                </span>
+
+                <i class="fa-solid fa-chevron-down arrow"></i>
+
+            </div>
+
+            <div class="submenu" id="anggotaMenu">
+
+                <a href="#">
+                    <i class="fa-solid fa-address-book"></i>
+                    Daftar Anggota
+                </a>
+
+                <a href="#">
+                    <i class="fa-solid fa-user-plus"></i>
+                    Tambah Anggota
+                </a>
+
+            </div>
+
+        </div>
+
+        <a href="#">
+            <i class="fa-solid fa-file-lines"></i>
+            Laporan
+        </a>
+
+        <a href="profile-admin.html">
+            <i class="fa-solid fa-user"></i>
+            Profil
+        </a>
+
+        <a href="../login.html">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            Logout
+        </a>
+
+    </div>
+
+    <div class="main">
+
+        <div class="topbar">
+
+            <h4 class="topbar-title" id="formPageTitle">
+                Tambah Buku
+            </h4>
+
+            <div class="profile">
+                <i class="fa-solid fa-circle-user"></i>
+                Admin
+            </div>
+
+        </div>
+
+        <div class="container-fluid p-4">
+
+            <div class="page-header">
+
+                <div>
+                    <p class="page-kicker">Manajemen Buku</p>
+                    <h2 id="formHeading">Tambah Koleksi Buku</h2>
+                    <p class="page-description">
+                        Lengkapi informasi buku agar anggota mudah menemukan lokasi dan statusnya.
+                    </p>
+                </div>
+
+                <a href="daftar-buku.html" class="btn btn-primary-custom">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    Kembali
+                </a>
+
+            </div>
+
+            <div class="row g-4">
+
+                <div class="col-lg-8">
+
+                    <div class="card section-card p-4">
+
+                        <form id="bookForm" novalidate>
+
+                            <div class="row g-3">
+
+                                <div class="col-md-8">
+                                    <label for="bookTitle" class="form-label">Judul Buku</label>
+                                    <input type="text" class="form-control" id="bookTitle"
+                                        placeholder="Contoh: Pemrograman Web Dasar" required>
+                                    <div class="invalid-feedback">Judul buku wajib diisi.</div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label for="bookCode" class="form-label">Kode Buku</label>
+                                    <input type="text" class="form-control" id="bookCode"
+                                        placeholder="BK-001" required>
+                                    <div class="invalid-feedback">Kode buku wajib diisi.</div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="bookAuthor" class="form-label">Penulis</label>
+                                    <input type="text" class="form-control" id="bookAuthor"
+                                        placeholder="Nama penulis" required>
+                                    <div class="invalid-feedback">Penulis wajib diisi.</div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="bookCategory" class="form-label">Kategori</label>
+                                    <select class="form-select" id="bookCategory" required>
+                                        <option value="">Pilih kategori</option>
+                                        <option value="Novel">Novel</option>
+                                        <option value="Teknologi">Teknologi</option>
+                                        <option value="Pendidikan">Pendidikan</option>
+                                        <option value="Pengembangan Diri">Pengembangan Diri</option>
+                                    </select>
+                                    <div class="invalid-feedback">Kategori wajib dipilih.</div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label for="bookStock" class="form-label">Stok</label>
+                                    <input type="number" min="0" class="form-control" id="bookStock"
+                                        placeholder="0" required>
+                                    <div class="invalid-feedback">Stok wajib diisi.</div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label for="bookLocation" class="form-label">Lokasi Rak</label>
+                                    <input type="text" class="form-control" id="bookLocation"
+                                        placeholder="A1" required>
+                                    <div class="invalid-feedback">Lokasi rak wajib diisi.</div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label for="bookStatus" class="form-label">Status</label>
+                                    <select class="form-select" id="bookStatus" required>
+                                        <option value="">Pilih status</option>
+                                        <option value="Tersedia">Tersedia</option>
+                                        <option value="Dipinjam">Dipinjam</option>
+                                        <option value="Reservasi">Reservasi</option>
+                                        <option value="Rusak">Rusak</option>
+                                    </select>
+                                    <div class="invalid-feedback">Status wajib dipilih.</div>
+                                </div>
+
+                                <div class="col-12">
+                                    <label for="bookCover" class="form-label">Foto Cover Buku</label>
+                                    <input type="file" class="form-control" id="bookCover"
+                                        accept="image/png, image/jpeg, image/webp">
+                                    <small class="form-text">
+                                        Gunakan gambar JPG, PNG, atau WebP agar cover tampil di katalog.
+                                    </small>
+                                </div>
+
+                                <div class="col-12">
+                                    <label for="bookSynopsis" class="form-label">Sinopsis</label>
+                                    <textarea class="form-control" id="bookSynopsis" rows="5"
+                                        placeholder="Tulis ringkasan isi buku" required></textarea>
+                                    <div class="invalid-feedback">Sinopsis wajib diisi.</div>
+                                </div>
+
+                            </div>
+
+                            <div class="alert alert-success d-none mt-4" id="formSuccess">
+                                <i class="fa-solid fa-circle-check"></i>
+                                Data buku berhasil disimpan pada mode demo frontend.
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="reset" class="btn btn-light">
+                                    <i class="fa-solid fa-rotate-left"></i>
+                                    Reset
+                                </button>
+
+                                <button type="submit" class="btn btn-accent">
+                                    <i class="fa-solid fa-floppy-disk"></i>
+                                    Simpan Buku
+                                </button>
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+                <div class="col-lg-4">
+
+                    <div class="card section-card p-4">
+
+                        <h5 class="section-title">
+                            Preview Data
+                        </h5>
+
+                        <div class="book-preview mt-3">
+                            <div class="book-cover compact" id="previewCover">
+                                <i class="fa-solid fa-book"></i>
+                            </div>
+
+                            <h5 id="previewTitle">Judul Buku</h5>
+                            <p id="previewAuthor">Nama penulis</p>
+
+                            <div class="preview-meta">
+                                <span id="previewCategory">Kategori</span>
+                                <span id="previewLocation">Rak</span>
+                                <span id="previewStatus">Status</span>
+                            </div>
+
+                            <p class="detail-synopsis" id="previewSynopsis">
+                                Sinopsis akan tampil di sini saat form diisi.
+                            </p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="../js/dashboard.js"></script>
+    <script src="../js/books.js"></script>
+</body>
+
+</html>

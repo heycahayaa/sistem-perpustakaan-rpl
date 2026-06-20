@@ -13,7 +13,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 <link rel="stylesheet" href="../css/dashboard.css">
 </head>
-<script src="../js/dashboard.js"></script>
 <body>
 
 <!-- SIDEBAR -->
@@ -21,7 +20,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 <div class="sidebar">
 
     <div class="logo">
-        📚 Perpustakaan
+        <i class="fa-solid fa-book-open-reader"></i>
+        Perpustakaan
     </div>
 
     <hr>
@@ -49,12 +49,12 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
         <div class="submenu" id="bukuMenu">
 
-            <a href="#">
+            <a href="daftar-buku.html">
                 <i class="fa-solid fa-list"></i>
                 Daftar Buku
             </a>
 
-            <a href="#">
+            <a href="tambah-buku.html">
                 <i class="fa-solid fa-plus"></i>
                 Tambah Buku
             </a>
@@ -131,12 +131,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
     <div class="container-fluid p-4">
 
-        <!-- SEARCH -->
-
-        <input
-        class="form-control search-box mb-4"
-        placeholder="Cari buku...">
-
         <!-- STATS -->
 
         <div class="row g-4">
@@ -150,7 +144,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
                         <div>
 
                             <p>Total Koleksi</p>
-                            <div class="stats-number">512</div>
+                            <div class="stats-number" data-book-total>0</div>
 
                         </div>
 
@@ -250,5 +244,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 </div>
 
+<script src="../js/dashboard.js"></script>
+<script src="../js/books.js"></script>
 </body>
 </html>

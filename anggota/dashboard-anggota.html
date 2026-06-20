@@ -21,7 +21,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 <div class="sidebar">
 
     <div class="logo">
-        📚 Perpustakaan
+        <i class="fa-solid fa-book-open-reader"></i>
+        Perpustakaan
     </div>
 
     <hr>
@@ -29,6 +30,11 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     <a href="#" class="active">
         <i class="fa-solid fa-house"></i>
         Dashboard
+    </a>
+
+    <a href="daftar-buku.html">
+        <i class="fa-solid fa-book"></i>
+        Daftar Buku
     </a>
 
     <a href="#">
@@ -70,17 +76,13 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
     <div class="container-fluid p-4">
 
-        <input
-        class="form-control search-box mb-4"
-        placeholder="Cari buku...">
-
     <div class="row g-4">
 
         <div class="col-lg-3">
             <div class="card stats-card p-3">
                 <div>
                     <p>Total Koleksi</p>
-                    <div class="stats-number">512</div>
+                    <div class="stats-number" data-book-total>0</div>
                 </div>
             </div>
         </div>
@@ -151,5 +153,6 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 </div>
 
+<script src="../js/books.js"></script>
 </body>
 </html>
