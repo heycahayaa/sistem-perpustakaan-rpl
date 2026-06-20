@@ -149,7 +149,7 @@ function renderBookStats(books) {
 
 function renderBookTable() {
     const tableBody = document.getElementById("bookTableBody");
-    const emptyState = document.getElementById("emptyState");
+    const emptyStateDiv = document.getElementById("emptyState");
 
     if (!tableBody) {
         return;
@@ -171,6 +171,24 @@ function renderBookTable() {
     });
 
     renderBookStats(books);
+
+    if (filteredBooks.length === 0) {
+        tableBody.innerHTML = `
+            <tr>
+                <td colspan="7" class="text-center py-5">
+                    <div class="text-muted">
+                        <i class="fa-solid fa-folder-open mb-3" style="font-size: 48px; color: #cbd5e1;"></i>
+                        <h5 class="fw-bold" style="color: var(--primary);">Buku tidak ditemukan</h5>
+                        <p class="mb-0">Ubah kata kunci pencarian atau filter yang sedang dipakai.</p>
+                    </div>
+                </td>
+            </tr>
+        `;
+        
+        if(emptyStateDiv) emptyStateDiv.classList.add("d-none");
+        
+        return; 
+    }
 
     tableBody.innerHTML = filteredBooks.map(book => {
         const actionButtons = isMemberView
@@ -221,7 +239,7 @@ function renderBookTable() {
     `;
     }).join("");
 
-    emptyState.classList.toggle("d-none", filteredBooks.length > 0);
+    if(emptyStateDiv) emptyStateDiv.classList.add("d-none");
 }
 
 function showBookDetail(bookId) {
@@ -361,9 +379,21 @@ function handleBookFormSubmit(event) {
     const params = new URLSearchParams(window.location.search);
     const editId = Number(params.get("edit"));
     const books = getBookData();
+    const inputCode = document.getElementById("bookCode").value.trim();
+
+    const isDuplicate = books.some(book => {
+        if (editId && book.id === editId) return false;
+        return book.code.toLowerCase() === inputCode.toLowerCase();
+    });
+
+    if (isDuplicate) {
+        alert(`Maaf, Kode Buku "${inputCode}" sudah terdaftar! Silakan gunakan kode lain.`);
+        return;
+    }
+
     const bookPayload = {
         id: editId || Date.now(),
-        code: document.getElementById("bookCode").value.trim(),
+        code: inputCode,
         title: document.getElementById("bookTitle").value.trim(),
         author: document.getElementById("bookAuthor").value.trim(),
         category: document.getElementById("bookCategory").value,
