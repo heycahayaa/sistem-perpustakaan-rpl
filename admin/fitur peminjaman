@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Peminjaman</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/book-management.css">
+    <link rel="stylesheet" href="../css/loan.css">
+</head>
+
+<body>
+
+    <div class="sidebar">
+
+        <div class="logo">
+            <i class="fa-solid fa-book-open-reader"></i>
+            Perpustakaan
+        </div>
+
+        <hr>
+
+        <a href="dashboard-admin.html">
+            <i class="fa-solid fa-house"></i>
+            Dashboard
+        </a>
+
+        <div class="menu-group">
+
+            <div class="menu-toggle"
+                onclick="toggleMenu(this,'bukuMenu')">
+
+                <span>
+                    <i class="fa-solid fa-book"></i>
+                    Buku
+                </span>
+
+                <i class="fa-solid fa-chevron-down arrow"></i>
+
+            </div>
+
+            <div class="submenu" id="bukuMenu">
+
+                <a href="daftar-buku.html">
+                    <i class="fa-solid fa-list"></i>
+                    Daftar Buku
+                </a>
+
+                <a href="tambah-buku.html">
+                    <i class="fa-solid fa-plus"></i>
+                    Tambah Buku
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="menu-group">
+
+            <div class="menu-toggle"
+                onclick="toggleMenu(this,'anggotaMenu')">
+
+                <span>
+                    <i class="fa-solid fa-users"></i>
+                    Anggota
+                </span>
+
+                <i class="fa-solid fa-chevron-down arrow"></i>
+
+            </div>
+
+            <div class="submenu" id="anggotaMenu">
+
+                <a href="#">
+                    <i class="fa-solid fa-address-book"></i>
+                    Daftar Anggota
+                </a>
+
+                <a href="#">
+                    <i class="fa-solid fa-user-plus"></i>
+                    Tambah Anggota
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="menu-group">
+
+            <div class="menu-toggle"
+                onclick="toggleMenu(this,'layananMenu')">
+
+                <span>
+                    <i class="fa-solid fa-book-open-reader"></i>
+                    Layanan
+                </span>
+
+                <i class="fa-solid fa-chevron-down arrow rotate"></i>
+
+            </div>
+
+            <div class="submenu show" id="layananMenu">
+
+                <a href="peminjaman.html" class="active">
+                    <i class="fa-solid fa-bookmark"></i>
+                    Peminjaman
+                </a>
+
+                <a href="pengembalian.html">
+                    <i class="fa-solid fa-arrow-rotate-left"></i>
+                    Pengembalian
+                </a>
+
+            </div>
+
+        </div>
+
+        <a href="#">
+            <i class="fa-solid fa-file-lines"></i>
+            Laporan
+        </a>
+
+        <a href="profile-admin.html">
+            <i class="fa-solid fa-user"></i>
+            Profil
+        </a>
+
+        <a href="../login.html">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            Logout
+        </a>
+
+    </div>
+
+    <div class="main">
+
+        <div class="topbar">
+
+            <h4 class="topbar-title">
+                Peminjaman
+            </h4>
+
+            <div class="profile">
+                <i class="fa-solid fa-circle-user"></i>
+                Admin
+            </div>
+
+        </div>
+
+        <div class="container-fluid p-4">
+
+            <div class="page-header">
+
+                <div>
+                    <p class="page-kicker">Layanan Sirkulasi</p>
+                    <h2>Catat Peminjaman Buku</h2>
+                    <p class="page-description">
+                        Input data peminjaman untuk mengecek stok dan memperbarui status buku secara otomatis.
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="row g-4">
+
+                <div class="col-lg-5">
+
+                    <div class="card section-card p-4 loan-form-card">
+
+                        <h5 class="section-title mb-3">
+                            <i class="fa-solid fa-clipboard-list"></i>
+                            Form Peminjaman
+                        </h5>
+
+                        <form id="loanForm" novalidate>
+
+                            <div class="mb-3">
+                                <label for="loanBookId" class="form-label">Pilih Buku</label>
+                                <select class="form-select" id="loanBookId" required>
+                                    <option value="">Pilih buku</option>
+                                </select>
+                                <div class="invalid-feedback">Buku wajib dipilih.</div>
+                                <small class="form-text">Hanya buku berstatus "Tersedia" yang bisa dipilih.</small>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="loanBorrowerName" class="form-label">Nama Peminjam</label>
+                                <input type="text" class="form-control" id="loanBorrowerName"
+                                    placeholder="Nama lengkap anggota" required>
+                                <div class="invalid-feedback">Nama peminjam wajib diisi.</div>
+                            </div>
+
+                            <div id="loanResult" class="alert d-none mt-3" role="alert"></div>
+
+                            <button type="submit" class="btn btn-accent w-100 mt-2">
+                                <i class="fa-solid fa-right-left"></i>
+                                Proses Peminjaman
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+                <div class="col-lg-7">
+
+                    <div class="card section-card p-4">
+
+                        <h5 class="section-title mb-3">
+                            <i class="fa-solid fa-list-check"></i>
+                            Peminjaman Aktif
+                        </h5>
+
+                        <div class="table-responsive">
+
+                            <table class="table align-middle loan-table">
+                                <thead>
+                                    <tr>
+                                        <th>Buku</th>
+                                        <th>Peminjam</th>
+                                        <th>Tgl Pinjam</th>
+                                        <th>Jatuh Tempo</th>
+                                        <th>Status</th>
+                                        <th class="text-end">Aksi</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="loanTableBody"></tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="../js/dashboard.js"></script>
+    <script src="../js/books.js"></script>
+    <script src="../js/peminjaman.js"></script>
+</body>
+
+</html>
