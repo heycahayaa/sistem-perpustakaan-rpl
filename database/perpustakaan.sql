@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 20 Jun 2026 pada 05.36
+-- Waktu pembuatan: 20 Jun 2026 pada 10.47
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -31,7 +31,11 @@ CREATE TABLE `admin` (
   `id_admin` int(11) NOT NULL,
   `id_user` int(11) DEFAULT NULL,
   `nama` varchar(100) DEFAULT NULL,
-  `kontak` varchar(50) DEFAULT NULL
+  `kontak` varchar(50) DEFAULT NULL,
+  `foto_profil` varchar(255) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `alamat` text DEFAULT NULL,
+  `no_telp` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -45,7 +49,14 @@ CREATE TABLE `anggota` (
   `id_user` int(11) DEFAULT NULL,
   `nama` varchar(100) DEFAULT NULL,
   `alamat` text DEFAULT NULL,
-  `no_telp` varchar(20) DEFAULT NULL
+  `no_telp` varchar(20) DEFAULT NULL,
+  `kode_anggota` varchar(20) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `pekerjaan` varchar(100) DEFAULT NULL,
+  `status_anggota` enum('Aktif','Nonaktif') DEFAULT 'Aktif',
+  `foto_profil` varchar(255) DEFAULT NULL,
+  `jenis_kelamin` enum('Laki-Laki','Perempuan') DEFAULT NULL,
+  `tanggal_lahir` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -61,17 +72,19 @@ CREATE TABLE `buku` (
   `kategori` varchar(100) DEFAULT NULL,
   `stok` int(11) DEFAULT NULL,
   `lokasi_rak` varchar(50) DEFAULT NULL,
-  `status` enum('tersedia','dipinjam','rusak') DEFAULT NULL
+  `status` enum('tersedia','dipinjam','rusak') DEFAULT NULL,
+  `kode_buku` varchar(20) DEFAULT NULL,
+  `sinopsis` text DEFAULT NULL,
+  `cover` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `buku`
 --
 
-INSERT INTO `buku` (`id_buku`, `judul`, `penulis`, `kategori`, `stok`, `lokasi_rak`, `status`) VALUES
-(1, 'Laskar Pelangi', 'Andrea Hirata', 'Novel', 5, 'A1', 'tersedia'),
-(2, 'Bumi', 'Tere Liye', 'Novel', 10, 'A2', 'tersedia'),
-(3, 'Atomic Habits', 'James Clear', 'Pengembangan Diri', 8, 'B1', 'tersedia');
+INSERT INTO `buku` (`id_buku`, `judul`, `penulis`, `kategori`, `stok`, `lokasi_rak`, `status`, `kode_buku`, `sinopsis`, `cover`) VALUES
+(1, 'Laskar Pelangi', 'Andrea Hirata', 'Novel', 5, 'A1', 'tersedia', 'BK-001', 'Novel tentang perjuangan anak-anak Belitung.', 'laskar.jpg'),
+(2, 'Atomic Habits', 'James Clear', 'Self Improvement', 4, 'B2', 'tersedia', 'BK-002', 'Buku tentang membangun kebiasaan baik.', 'atomic.jpg');
 
 -- --------------------------------------------------------
 
@@ -84,6 +97,19 @@ CREATE TABLE `denda` (
   `id_kembali` int(11) DEFAULT NULL,
   `jumlah_denda` decimal(10,2) DEFAULT NULL,
   `status_bayar` enum('belum_bayar','sudah_bayar') DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `log_aktivitas`
+--
+
+CREATE TABLE `log_aktivitas` (
+  `id_log` int(11) NOT NULL,
+  `id_user` int(11) DEFAULT NULL,
+  `deskripsi` text DEFAULT NULL,
+  `waktu` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -163,13 +189,15 @@ ALTER TABLE `admin`
 --
 ALTER TABLE `anggota`
   ADD PRIMARY KEY (`id_anggota`),
+  ADD UNIQUE KEY `kode_anggota` (`kode_anggota`),
   ADD KEY `id_user` (`id_user`);
 
 --
 -- Indeks untuk tabel `buku`
 --
 ALTER TABLE `buku`
-  ADD PRIMARY KEY (`id_buku`);
+  ADD PRIMARY KEY (`id_buku`),
+  ADD UNIQUE KEY `kode_buku` (`kode_buku`);
 
 --
 -- Indeks untuk tabel `denda`
@@ -177,6 +205,13 @@ ALTER TABLE `buku`
 ALTER TABLE `denda`
   ADD PRIMARY KEY (`id_denda`),
   ADD KEY `id_kembali` (`id_kembali`);
+
+--
+-- Indeks untuk tabel `log_aktivitas`
+--
+ALTER TABLE `log_aktivitas`
+  ADD PRIMARY KEY (`id_log`),
+  ADD KEY `id_user` (`id_user`);
 
 --
 -- Indeks untuk tabel `notifikasi`
@@ -226,13 +261,19 @@ ALTER TABLE `anggota`
 -- AUTO_INCREMENT untuk tabel `buku`
 --
 ALTER TABLE `buku`
-  MODIFY `id_buku` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_buku` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `denda`
 --
 ALTER TABLE `denda`
   MODIFY `id_denda` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `log_aktivitas`
+--
+ALTER TABLE `log_aktivitas`
+  MODIFY `id_log` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `notifikasi`
@@ -279,6 +320,12 @@ ALTER TABLE `anggota`
 --
 ALTER TABLE `denda`
   ADD CONSTRAINT `denda_ibfk_1` FOREIGN KEY (`id_kembali`) REFERENCES `pengembalian` (`id_kembali`);
+
+--
+-- Ketidakleluasaan untuk tabel `log_aktivitas`
+--
+ALTER TABLE `log_aktivitas`
+  ADD CONSTRAINT `log_aktivitas_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`);
 
 --
 -- Ketidakleluasaan untuk tabel `notifikasi`
