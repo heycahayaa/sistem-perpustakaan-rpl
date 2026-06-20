@@ -40,7 +40,7 @@ form.addEventListener("submit", function (e) {
         setTimeout(() => {
 
             window.location.href =
-            "dashboard-admin.html";
+            "admin/dashboard-admin.html";
 
         }, 1000);
 
@@ -59,7 +59,7 @@ form.addEventListener("submit", function (e) {
         setTimeout(() => {
 
             window.location.href =
-            "dashboard-anggota.html";
+            "anggota/dashboard-anggota.html";
 
         }, 1000);
 
