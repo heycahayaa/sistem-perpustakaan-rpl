@@ -1,0 +1,119 @@
+.loan-form-card .form-label,
+.return-form-card .form-label {
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.loan-table {
+    min-width: 760px;
+}
+
+.loan-table thead th {
+    color: var(--primary);
+    font-size: .88rem;
+    white-space: nowrap;
+}
+
+.fine-box {
+    background: rgba(220, 53, 69, .08);
+    border: 1px solid rgba(220, 53, 69, .2);
+    border-radius: 14px;
+    padding: 18px;
+}
+
+.fine-box h6 {
+    color: #dc3545;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.fine-box .fine-figure {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #dc3545;
+}
+
+.ontime-box {
+    background: rgba(25, 135, 84, .08);
+    border: 1px solid rgba(25, 135, 84, .2);
+    border-radius: 14px;
+    padding: 18px;
+    color: #198754;
+    font-weight: 600;
+}
+
+/* PENCARIAN BUKU */
+
+.search-hero {
+    background: linear-gradient(145deg, var(--primary), var(--secondary));
+    border-radius: 20px;
+    padding: 36px 30px;
+    color: white;
+    margin-bottom: 24px;
+}
+
+.search-hero h2 {
+    font-weight: 800;
+    margin-bottom: 6px;
+}
+
+.search-hero p {
+    color: rgba(255, 255, 255, .8);
+    margin-bottom: 20px;
+}
+
+.search-input-wrap {
+    background: white;
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+.search-input-wrap .input-group-text {
+    background: white;
+    border: none;
+    color: var(--secondary);
+}
+
+.search-input-wrap .form-control {
+    border: none;
+    padding: 14px 10px;
+    font-size: 1.05rem;
+}
+
+.search-input-wrap .form-control:focus {
+    box-shadow: none;
+}
+
+.book-search-card {
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, .05);
+    transition: .25s;
+}
+
+.book-search-card:hover {
+    transform: translateY(-3px);
+}
+
+.state-placeholder {
+    text-align: center;
+    padding: 48px 16px;
+    color: #6c757d;
+}
+
+.state-placeholder i {
+    font-size: 42px;
+    color: var(--accent);
+    margin-bottom: 14px;
+}
+
+.state-placeholder h5 {
+    color: var(--primary);
+    font-weight: 700;
+}
+
+/* MY LOANS - ANGGOTA */
+
+.my-loan-search {
+    max-width: 420px;
+}
