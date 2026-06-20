@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Daftar Anggota</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/book-management.css">
+</head>
+
+<body>
+
+    <div class="sidebar">
+
+        <div class="logo">
+            <i class="fa-solid fa-book-open-reader"></i>
+            Perpustakaan
+        </div>
+
+        <hr>
+
+        <a href="dashboard-admin.html">
+            <i class="fa-solid fa-house"></i>
+            Dashboard
+        </a>
+
+        <div class="menu-group">
+
+            <div class="menu-toggle" onclick="toggleMenu(this,'bukuMenu')">
+                <span>
+                    <i class="fa-solid fa-book"></i>
+                    Buku
+                </span>
+                <i class="fa-solid fa-chevron-down arrow"></i>
+            </div>
+
+            <div class="submenu" id="bukuMenu">
+                <a href="daftar-buku.html">
+                    <i class="fa-solid fa-list"></i>
+                    Daftar Buku
+                </a>
+                <a href="tambah-buku.html">
+                    <i class="fa-solid fa-plus"></i>
+                    Tambah Buku
+                </a>
+            </div>
+
+        </div>
+
+        <div class="menu-group">
+
+            <div class="menu-toggle" onclick="toggleMenu(this,'anggotaMenu')">
+                <span>
+                    <i class="fa-solid fa-users"></i>
+                    Anggota
+                </span>
+                <i class="fa-solid fa-chevron-down arrow rotate"></i>
+            </div>
+
+            <div class="submenu show" id="anggotaMenu">
+                <a href="daftar-anggota.html" class="active">
+                    <i class="fa-solid fa-address-book"></i>
+                    Daftar Anggota
+                </a>
+                <a href="tambah-anggota.html">
+                    <i class="fa-solid fa-user-plus"></i>
+                    Tambah Anggota
+                </a>
+            </div>
+
+        </div>
+
+        <div class="menu-group">
+
+            <div class="menu-toggle" onclick="toggleMenu(this,'layananMenu')">
+                <span>
+                    <i class="fa-solid fa-book-open-reader"></i>
+                    Layanan
+                </span>
+                <i class="fa-solid fa-chevron-down arrow"></i>
+            </div>
+
+            <div class="submenu" id="layananMenu">
+                <a href="#">
+                    <i class="fa-solid fa-bookmark"></i>
+                    Peminjaman
+                </a>
+                <a href="#">
+                    <i class="fa-solid fa-arrow-rotate-left"></i>
+                    Pengembalian
+                </a>
+            </div>
+
+        </div>
+
+        <a href="#">
+            <i class="fa-solid fa-file-lines"></i>
+            Laporan
+        </a>
+
+        <a href="profile-admin.html">
+            <i class="fa-solid fa-user"></i>
+            Profil
+        </a>
+
+        <a href="../login.html">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            Logout
+        </a>
+
+    </div>
+
+    <div class="main">
+
+        <div class="topbar">
+            <h4 class="topbar-title">Manajemen Anggota</h4>
+            <div class="profile">
+                <i class="fa-solid fa-circle-user"></i>
+                Admin
+            </div>
+        </div>
+
+        <div class="container-fluid p-4">
+
+            <div class="page-header">
+                <div>
+                    <div class="page-kicker">Direktori Pengguna</div>
+                    <h2>Daftar Anggota</h2>
+                    <p class="page-description">Kelola data seluruh anggota perpustakaan yang terdaftar.</p>
+                </div>
+                <a href="tambah-anggota.html" class="btn btn-primary-custom" style="background-color: var(--primary); color: white;">
+                    <i class="fa-solid fa-plus me-2"></i> Tambah Anggota
+                </a>
+            </div>
+
+            <div class="book-toolbar mb-4">
+                <div class="input-group book-search">
+                    <span class="input-group-text border-end-0"><i class="fa-solid fa-magnifying-glass"></i></span>
+                    <input type="text" class="form-control border-start-0" id="memberSearch" placeholder="Cari nama, ID, atau email anggota...">
+                </div>
+                <select class="form-select" id="statusFilter">
+                    <option value="">Semua Status</option>
+                    <option value="Aktif">Aktif</option>
+                    <option value="Nonaktif">Nonaktif</option>
+                </select>
+            </div>
+
+            <div class="card section-card p-0 overflow-hidden">
+                <div class="table-responsive">
+                    <table class="table book-table mb-0 align-middle">
+                        <thead>
+                            <tr>
+                                <th>Profil Anggota</th>
+                                <th>Kontak</th>
+                                <th>Pekerjaan</th>
+                                <th>Alamat</th>
+                                <th>Status</th>
+                                <th class="text-end">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="memberTableBody">
+                            <!-- Data dirender oleh file JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/dashboard.js"></script>
+    <script src="../js/member.js"></script>
+</body>
+
+</html>
