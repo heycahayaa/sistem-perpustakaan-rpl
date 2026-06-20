@@ -166,8 +166,6 @@
 
         </div>
 
-        <div class="container-fluid p-4">
-
             <!-- PROFILE HEADER -->
 
             <div class="container-fluid p-4">
@@ -202,7 +200,7 @@
 
                             <div class="col-lg-2 text-end">
 
-                                <button class="btn btn-warning">
+                                <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalEditAdmin">
 
                                     <i class="fa-solid fa-pen"></i>
                                     Edit Profil
@@ -303,7 +301,49 @@
 
     </div>
 
+    <!-- MODAL EDIT ADMIN -->
+    <div class="modal fade" id="modalEditAdmin" tabindex="-1" aria-labelledby="modalEditAdminLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalEditAdminLabel"><i class="fa-solid fa-user-pen"></i> Edit Profil Admin</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formEditAdmin">
+                        <div class="mb-3">
+                            <label class="form-label">Foto Profil</label>
+                            <input type="file" class="form-control" accept="image/*">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Nama Lengkap</label>
+                            <input type="text" class="form-control" id="inputNamaAdmin" value="Budi Santoso" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" id="inputEmailAdmin" value="admin@perpus.com" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Nomor Telepon</label>
+                            <input type="text" class="form-control" id="inputTelpAdmin" value="081111111111" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Alamat</label>
+                            <textarea class="form-control" id="inputAlamatAdmin" rows="2" required>Jalan Merdeka No.10</textarea>
+                        </div>
+                        <div class="text-end mt-4">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-primary-custom" style="background-color: #1E3A5F; color: white;">Simpan Perubahan</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 <script src="../js/dashboard.js"></script>
+<script src="../js/profile.js"></script>
 
 </body>
 

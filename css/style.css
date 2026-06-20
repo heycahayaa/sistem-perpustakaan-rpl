@@ -15,14 +15,11 @@
 body {
 
     font-family: "Segoe UI", sans-serif;
-
-    background-image:
-        url("../assets/bg/library-bg.png");
+    background: var(--primary) url("../assets/bg/library-bg.png");
 
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-
     overflow: hidden;
 }
 
