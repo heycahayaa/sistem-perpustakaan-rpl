@@ -1,0 +1,74 @@
+{
+  "users": [
+    { "id_user": 1, "username": "admin", "password": "admin123", "role": "admin" },
+    { "id_user": 2, "username": "anggota", "password": "anggota123", "role": "anggota" }
+  ],
+  "buku": [
+    {
+      "id_buku": 1,
+      "kode_buku": "BK-001",
+      "judul": "Laskar Pelangi",
+      "penulis": "Andrea Hirata",
+      "kategori": "Novel",
+      "lokasi_rak": "A1",
+      "stok": 5,
+      "status": "Tersedia",
+      "sinopsis": "Kisah persahabatan dan perjuangan anak-anak Belitung dalam mengejar pendidikan."
+    },
+    {
+      "id_buku": 2,
+      "kode_buku": "BK-002",
+      "judul": "Bumi",
+      "penulis": "Tere Liye",
+      "kategori": "Novel",
+      "lokasi_rak": "A2",
+      "stok": 10,
+      "status": "Tersedia",
+      "sinopsis": "Petualangan remaja dengan dunia paralel yang penuh rahasia dan kekuatan istimewa."
+    },
+    {
+      "id_buku": 3,
+      "kode_buku": "BK-003",
+      "judul": "Atomic Habits",
+      "penulis": "James Clear",
+      "kategori": "Pengembangan Diri",
+      "lokasi_rak": "B1",
+      "stok": 8,
+      "status": "Dipinjam",
+      "sinopsis": "Panduan membangun kebiasaan kecil yang berdampak besar dalam kehidupan sehari-hari."
+    },
+    {
+      "id_buku": 4,
+      "kode_buku": "BK-004",
+      "judul": "Pemrograman Web Dasar",
+      "penulis": "Abdul Kadir",
+      "kategori": "Teknologi",
+      "lokasi_rak": "C3",
+      "stok": 3,
+      "status": "Reservasi",
+      "sinopsis": "Pengantar HTML, CSS, JavaScript, dan konsep dasar pengembangan aplikasi web."
+    },
+    {
+      "id_buku": 5,
+      "kode_buku": "BK-005",
+      "judul": "Metodologi Penelitian Pendidikan",
+      "penulis": "Sugiyono",
+      "kategori": "Pendidikan",
+      "lokasi_rak": "D2",
+      "stok": 1,
+      "status": "Tersedia",
+      "sinopsis": "Pembahasan metode penelitian kuantitatif, kualitatif, dan pengembangan dalam pendidikan."
+    },
+    {
+      "id_buku": 6,
+      "kode_buku": "BK-006",
+      "judul": "Basis Data",
+      "penulis": "Fathansyah",
+      "kategori": "Teknologi",
+      "lokasi_rak": "C1",
+      "stok": 0,
+      "status": "Rusak",
+      "sinopsis": "Konsep dasar basis data, pemodelan relasi, normalisasi, dan penggunaan SQL."
+    }
+  ]
+}
