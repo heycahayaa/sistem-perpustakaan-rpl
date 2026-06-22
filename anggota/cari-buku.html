@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Cari Buku</title>
+    <title>Daftar Buku</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -14,10 +14,9 @@
 
     <link rel="stylesheet" href="../css/dashboard.css">
     <link rel="stylesheet" href="../css/book-management.css">
-    <link rel="stylesheet" href="../css/loan.css">
 </head>
 
-<body>
+<body data-book-view="member">
 
     <div class="sidebar">
 
@@ -33,17 +32,12 @@
             Dashboard
         </a>
 
-        <a href="daftar-buku.html">
+        <a href="daftar-buku.html" class="active">
             <i class="fa-solid fa-book"></i>
             Daftar Buku
         </a>
 
-        <a href="cari-buku.html" class="active">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            Cari Buku
-        </a>
-
-        <a href="peminjaman-saya.html">
+        <a href="peminjaman-anggota.html">
             <i class="fa-solid fa-book-open"></i>
             Peminjaman Saya
         </a>
@@ -70,7 +64,7 @@
         <div class="topbar">
 
             <h4 class="topbar-title">
-                Cari Buku
+                Daftar Buku
             </h4>
 
             <div class="profile">
@@ -82,32 +76,108 @@
 
         <div class="container-fluid p-4">
 
-            <div class="search-hero">
-                <h2>Cari koleksi buku perpustakaan</h2>
-                <p>Ketik judul, penulis, atau kategori untuk menemukan buku yang kamu cari.</p>
+            <div class="page-header">
 
-                <div class="input-group search-input-wrap">
-                    <span class="input-group-text">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </span>
-                    <input type="text" class="form-control" id="searchKeyword"
-                        placeholder="Contoh: Laskar Pelangi, Tere Liye, Teknologi...">
+                <div>
+                    <p class="page-kicker">Katalog Buku</p>
+                    <h2>Cari Koleksi Perpustakaan</h2>
+                    <p class="page-description">
+                        Temukan buku berdasarkan judul, penulis, kategori, lokasi rak, dan status ketersediaannya.
+                    </p>
                 </div>
+
             </div>
 
-            <div id="searchHintState" class="state-placeholder">
-                <i class="fa-solid fa-book-open-reader"></i>
-                <h5>Mulai pencarian</h5>
-                <p>Hasil pencarian akan muncul di sini.</p>
+            <div class="row g-4 mb-4">
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="card stats-card p-3">
+                        <p>Total Buku</p>
+                        <div class="stats-number" id="totalBooks">0</div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="card stats-card p-3">
+                        <p>Tersedia</p>
+                        <div class="stats-number" id="availableBooks">0</div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="card stats-card p-3">
+                        <p>Dipinjam</p>
+                        <div class="stats-number" id="borrowedBooks">0</div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="card stats-card p-3">
+                        <p>Stok Rendah</p>
+                        <div class="stats-number" id="lowStockBooks">0</div>
+                    </div>
+                </div>
+
             </div>
 
-            <div id="searchEmptyState" class="state-placeholder d-none">
-                <i class="fa-solid fa-book-open"></i>
-                <h5>Buku tidak ditemukan</h5>
-                <p>Coba kata kunci lain, seperti judul, penulis, atau kategori.</p>
-            </div>
+            <div class="card section-card p-4">
 
-            <div class="row g-4" id="searchResultGrid"></div>
+                <div class="book-toolbar">
+
+                    <div class="input-group book-search">
+                        <span class="input-group-text">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </span>
+                        <input type="text" class="form-control" id="bookSearch"
+                            placeholder="Cari judul, penulis, atau lokasi rak">
+                    </div>
+
+                    <select class="form-select" id="categoryFilter">
+                        <option value="">Semua kategori</option>
+                        <option value="Novel">Novel</option>
+                        <option value="Teknologi">Teknologi</option>
+                        <option value="Pendidikan">Pendidikan</option>
+                        <option value="Pengembangan Diri">Pengembangan Diri</option>
+                    </select>
+
+                    <select class="form-select" id="statusFilter">
+                        <option value="">Semua status</option>
+                        <option value="Tersedia">Tersedia</option>
+                        <option value="Dipinjam">Dipinjam</option>
+                        <option value="Reservasi">Reservasi</option>
+                        <option value="Rusak">Rusak</option>
+                    </select>
+
+                </div>
+
+                <div class="table-responsive mt-4">
+
+                    <table class="table align-middle book-table">
+                        <thead>
+                            <tr>
+                                <th>Judul Buku</th>
+                                <th>Penulis</th>
+                                <th>Kategori</th>
+                                <th>Lokasi</th>
+                                <th>Stok</th>
+                                <th>Status</th>
+                                <th class="text-end">Aksi</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="bookTableBody">
+                        </tbody>
+                    </table>
+
+                </div>
+
+                <div class="empty-state d-none" id="emptyState">
+                    <i class="fa-solid fa-book-open"></i>
+                    <h5>Data buku tidak ditemukan</h5>
+                    <p>Ubah kata kunci pencarian atau filter yang sedang dipakai.</p>
+                </div>
+
+            </div>
 
         </div>
 
@@ -172,7 +242,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../js/books.js"></script>
-    <script src="../js/peminjaman.js"></script>
 </body>
 
 </html>
