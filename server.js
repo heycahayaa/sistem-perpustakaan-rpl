@@ -72,11 +72,6 @@ app.delete('/api/buku/:id', (req, res) => {
     res.json({ success: true, message: "Buku berhasil dihapus!" });
 });
 
-// Menampilkan halaman login saat mengakses domain utama Vercel
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'login.html'));
-});
-
 app.listen(PORT, () => {
     console.log(`=======================================================`);
     console.log(`Backend berjalan di http://localhost:${PORT}`);
