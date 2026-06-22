@@ -133,7 +133,7 @@
             Profil
         </a>
 
-        <a href="../login.html">
+        <a href="../index.html">
             <i class="fa-solid fa-right-from-bracket"></i>
             Logout
         </a>
@@ -163,7 +163,7 @@
                     <p class="page-kicker">Layanan Sirkulasi</p>
                     <h2>Proses Pengembalian Buku</h2>
                     <p class="page-description">
-                        Sistem mengecek jatuh tempo secara otomatis dan menghitung denda bila terlambat.
+                        Sistem mengecek jatuh tempo secara otomatis dan menghitung denda bila terlamat.
                     </p>
                 </div>
 
@@ -190,7 +190,6 @@
                                 <div class="invalid-feedback">Peminjaman wajib dipilih.</div>
                             </div>
 
-                            <!-- ALT: terlambat -> tampilkan denda -->
                             <div id="fineSection" class="fine-box d-none mb-3">
                                 <h6>
                                     <i class="fa-solid fa-triangle-exclamation"></i>
@@ -205,7 +204,6 @@
                                 <div class="fine-figure" id="fineAmount">Rp0</div>
                             </div>
 
-                            <!-- Tepat waktu -->
                             <div id="onTimeSection" class="ontime-box d-none mb-3">
                                 <i class="fa-solid fa-circle-check"></i>
                                 Buku dikembalikan tepat waktu, tidak ada denda.
@@ -247,7 +245,7 @@
                                     </tr>
                                 </thead>
 
-                                <tbody id="loanTableBody"></tbody>
+                                <tbody id="returnTableBody"></tbody>
                             </table>
 
                         </div>
@@ -265,6 +263,7 @@
     <script src="../js/dashboard.js"></script>
     <script src="../js/books.js"></script>
     <script src="../js/fitur.js"></script>
+    <script src="../js/peminjaman.js"></script>
 </body>
 
 </html>
