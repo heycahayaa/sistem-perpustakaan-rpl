@@ -1,7 +1,17 @@
 {
   "users": [
-    { "id_user": 1, "username": "admin", "password": "admin123", "role": "admin" },
-    { "id_user": 2, "username": "anggota", "password": "anggota123", "role": "anggota" }
+    {
+      "id_user": 1,
+      "username": "admin",
+      "password": "admin123",
+      "role": "admin"
+    },
+    {
+      "id_user": 2,
+      "username": "anggota",
+      "password": "anggota123",
+      "role": "anggota"
+    }
   ],
   "buku": [
     {
@@ -69,6 +79,17 @@
       "stok": 0,
       "status": "Rusak",
       "sinopsis": "Konsep dasar basis data, pemodelan relasi, normalisasi, dan penggunaan SQL."
+    },
+    {
+      "id_buku": 1782019195059,
+      "kode_buku": "BK-007",
+      "judul": "3726 MDPL",
+      "penulis": "Nurwina Sari",
+      "kategori": "Novel",
+      "stok": 5,
+      "lokasi_rak": "A1",
+      "status": "Tersedia",
+      "sinopsis": "Mengisahkan perjuangan Rangga Raja, mahasiswa Fakultas Kehutanan yang memendam cinta selama empat tahun kepada adik tingkatnya, Andini Hangura. Selain disibukkan dengan skripsi, Rangga, Ketua Panitia OSPEK Fakultas Kehutanan 2023 itu juga menyibukkan dirinya dengan mengagumi Andini. Seorang mahasiswi yang bercita-cita bisa mendaki Gunung Rinjani, sekaligus adik tingkat yang ia sebut sebagai manusia favorit. Andini dikelilingi oleh banyak cinta, banyak manusia yang ingin dengannya, terutama Rangga dengan seluruh kesan istimewanya. Namun, dalam dirinya, ada manusia dulu yang entah masih jadi pemenang atau definisi lain dari itu."
     }
   ]
 }
