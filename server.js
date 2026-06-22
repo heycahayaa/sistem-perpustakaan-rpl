@@ -1,5 +1,4 @@
 const express = require('express');
-const fs = require('fs');
 const path = require('path');
 const app = express();
 const PORT = 3000;
@@ -8,20 +7,32 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(__dirname));
 
-const readDB = () => {
-    const data = fs.readFileSync(path.join(__dirname, 'database.json'));
-    return JSON.parse(data);
+// DATABASENYA PINDAH KE SINI (Variabel lokal di dalam program)
+let DATA_PERPUSTAKAAN = {
+    users: [
+        { username: "admin", password: "admin123", role: "admin" },
+        { username: "anggota", password: "anggota123", role: "anggota" }
+    ],
+    buku: [
+        {
+            id_buku: 1,
+            kode_buku: "B001",
+            judul: "Belajar Node.js itu Mudah",
+            penulis: "Cahaya",
+            kategori: "Teknologi",
+            stok: 5,
+            lokasi_rak: "Rak A1",
+            status: "Tersedia",
+            sinopsis: "Buku panduan belajar backend Node.js dari dasar."
+        }
+    ]
 };
 
-const writeDB = (data) => {
-    fs.writeFileSync(path.join(__dirname, 'database.json'), JSON.stringify(data, null, 2));
-};
-
-// --- API PROSES LOGIN ---
+// --- API PROSES LOGIN (Tanpa File JSON) ---
 app.post('/api/login', (req, res) => {
     const { username, password } = req.body;
-    const db = readDB();
-    const user = db.users.find(u => u.username === username && u.password === password);
+    
+    const user = DATA_PERPUSTAKAAN.users.find(u => u.username === username && u.password === password);
     
     if (user) {
         res.json({ success: true, role: user.role });
@@ -32,16 +43,14 @@ app.post('/api/login', (req, res) => {
 
 // --- API READ BUKU ---
 app.get('/api/buku', (req, res) => {
-    const db = readDB();
-    res.json(db.buku);
+    res.json(DATA_PERPUSTAKAAN.buku);
 });
 
 // --- API CREATE BUKU --
 app.post('/api/buku', (req, res) => {
     const { bookCode, bookTitle, bookAuthor, bookCategory, bookStock, bookLocation, bookStatus, bookSynopsis } = req.body;
-    const db = readDB();
     
-    if (db.buku.some(b => b.kode_buku.toLowerCase() === bookCode.toLowerCase())) {
+    if (DATA_PERPUSTAKAAN.buku.some(b => b.kode_buku.toLowerCase() === bookCode.toLowerCase())) {
         return res.json({ success: false, message: `Kode Buku "${bookCode}" sudah terdaftar!` });
     }
 
@@ -57,18 +66,15 @@ app.post('/api/buku', (req, res) => {
         sinopsis: bookSynopsis
     };
     
-    db.buku.push(newBook);
-    writeDB(db);
+    DATA_PERPUSTAKAAN.buku.push(newBook);
     res.json({ success: true, message: "Buku berhasil ditambahkan!" });
 });
 
 // --- API DELETE BUKU ---
 app.delete('/api/buku/:id', (req, res) => {
     const idBuku = parseInt(req.params.id);
-    const db = readDB();
     
-    db.buku = db.buku.filter(b => b.id_buku !== idBuku);
-    writeDB(db);
+    DATA_PERPUSTAKAAN.buku = DATA_PERPUSTAKAAN.buku.filter(b => b.id_buku !== idBuku);
     res.json({ success: true, message: "Buku berhasil dihapus!" });
 });
 
