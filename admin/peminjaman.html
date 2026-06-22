@@ -183,9 +183,9 @@
                         <form id="loanForm" novalidate>
 
                             <div class="mb-3">
-                                <label for="loanBookId" class="form-label">Pilih Buku</label>
-                                <select class="form-select" id="loanBookId" required>
-                                    <option value="">Pilih buku</option>
+                                <label for="loanBookSelect" class="form-label">Pilih Buku</label>
+                                <select class="form-select" id="loanBookSelect" required>
+                                    <option value="" disabled selected>Pilih buku</option>
                                 </select>
                                 <div class="invalid-feedback">Buku wajib dipilih.</div>
                                 <small class="form-text">Hanya buku berstatus "Tersedia" yang bisa dipilih.</small>
@@ -225,16 +225,16 @@
                             <table class="table align-middle loan-table">
                                 <thead>
                                     <tr>
+                                        <th>No</th>
                                         <th>Buku</th>
                                         <th>Peminjam</th>
                                         <th>Tgl Pinjam</th>
                                         <th>Jatuh Tempo</th>
                                         <th>Status</th>
-                                        <th class="text-end">Aksi</th>
                                     </tr>
                                 </thead>
 
-                                <tbody id="loanTableBody"></tbody>
+                                <tbody id="activeLoanTableBody"></tbody>
                             </table>
 
                         </div>
@@ -252,6 +252,7 @@
     <script src="../js/dashboard.js"></script>
     <script src="../js/books.js"></script>
     <script src="../js/fitur.js"></script>
+    <script src="../js/peminjaman.js"></script>
 </body>
 
 </html>
