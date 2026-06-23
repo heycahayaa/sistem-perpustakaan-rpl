@@ -72,6 +72,47 @@ app.delete('/api/buku/:id', (req, res) => {
     res.json({ success: true, message: "Buku berhasil dihapus!" });
 });
 
+// --- API PROSES PEMINJAMAN BUKU (DIPERBAIKI AGAR SIMPAN NAMA) ---
+app.post('/api/peminjaman', (req, res) => {
+    const { idBuku, namaPeminjam } = req.body;
+    const db = readDB();
+    
+    const bookIndex = db.buku.findIndex(b => b.id_buku === parseInt(idBuku));
+    
+    if (bookIndex !== -1) {
+        db.buku[bookIndex].status = "Dipinjam";
+        db.buku[bookIndex].peminjam = namaPeminjam; // Nama peminjam paten masuk ke DB
+        
+        if (db.buku[bookIndex].stok > 0) {
+            db.buku[bookIndex].stok -= 1;
+        }
+        
+        writeDB(db);
+        res.json({ success: true, message: `Peminjaman buku "${db.buku[bookIndex].judul}" atas nama ${namaPeminjam} berhasil dicatat!` });
+    } else {
+        res.json({ success: false, message: "Buku tidak ditemukan!" });
+    }
+});
+
+// --- API PROSES PENGEMBALIAN BUKU (DIPERBAIKI AGAR HAPUS NAMA) ---
+app.post('/api/pengembalian', (req, res) => {
+    const { idBuku } = req.body;
+    const db = readDB();
+    
+    const bookIndex = db.buku.findIndex(b => b.id_buku === parseInt(idBuku));
+    
+    if (bookIndex !== -1) {
+        db.buku[bookIndex].status = "Tersedia";
+        db.buku[bookIndex].stok += 1;
+        delete db.buku[bookIndex].peminjam; // Hapus properti nama karena sudah kembali
+        
+        writeDB(db);
+        res.json({ success: true, message: `Buku "${db.buku[bookIndex].judul}" sukses dikembalikan!` });
+    } else {
+        res.json({ success: false, message: "Transaksi peminjaman tidak terdata!" });
+    }
+});
+
 app.listen(PORT, () => {
     console.log(`=======================================================`);
     console.log(`Backend berjalan di http://localhost:${PORT}`);
