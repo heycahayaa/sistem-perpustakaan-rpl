@@ -9,6 +9,11 @@ document.addEventListener("DOMContentLoaded", () => {
         renderActiveLoans();
     }
 
+    const loanForm = document.getElementById("loanForm");
+    if (loanForm) {
+        loanForm.addEventListener("submit", handleLoanSubmit);
+    }
+
     // === LOGIKA UNTUK HALAMAN PENGEMBALIAN ADMIN ===
     if (document.getElementById("returnLoanId")) {
         populateReturnDropdown();
@@ -23,7 +28,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // === LOGIKA HALAMAN PEMINJAMAN SAYA (ANGGOTA) ===
     const myLoanInput = document.getElementById("myLoanName");
     if (myLoanInput) {
-        // Jalankan pencarian setiap kali ada huruf baru yang diketik anggota
         myLoanInput.addEventListener("input", renderLoanTableMember);
     }
 });
@@ -67,13 +71,51 @@ function renderActiveLoans() {
                 <tr>
                     <td>${index + 1}</td>
                     <td><strong>${book.judul}</strong><br><small class="text-muted">${book.kode_buku}</small></td>
-                    <td>Anggota Perpus</td>
+                    <td>${book.peminjam || "Anggota Perpus"}</td>
                     <td>22 Juni 2026</td>
                     <td>29 Juni 2026</td>
                     <td><span class="status-badge status-dipinjam"><i class="fa-solid fa-circle"></i> Dipinjam</span></td>
                 </tr>
             `).join("");
         });
+}
+
+function handleLoanSubmit(event) {
+    event.preventDefault();
+
+    const bookSelect = document.getElementById("loanBookSelect");
+    const borrowerInput = document.getElementById("loanBorrowerName");
+
+    if (!bookSelect.value || !borrowerInput.value.trim()) {
+        alert("Mohon pilih buku dan masukkan nama peminjam!");
+        return;
+    }
+
+    const requestData = {
+        idBuku: bookSelect.value,
+        namaPeminjam: borrowerInput.value.trim()
+    };
+
+    fetch('/api/peminjaman', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(requestData)
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            alert(data.message);
+            borrowerInput.value = ""; 
+            populateBookDropdown();
+            renderActiveLoans();
+        } else {
+            alert("Gagal mencatat transaksi: " + data.message);
+        }
+    })
+    .catch(err => {
+        console.error("Gagal terhubung ke API:", err);
+        alert("Terjadi kendala koneksi ke server.");
+    });
 }
 
 // --- FUNGSI HALAMAN PENGEMBALIAN ADMIN ---
@@ -95,7 +137,7 @@ function populateReturnDropdown() {
             activeLoans.forEach(book => {
                 const option = document.createElement("option");
                 option.value = book.id_buku;
-                option.textContent = `Anggota Perpus - Meminjam "${book.judul}"`;
+                option.textContent = `${book.peminjam || "Anggota"} - Meminjam "${book.judul}"`;
                 returnSelect.appendChild(option);
             });
         });
@@ -118,12 +160,12 @@ function renderWaitingReturns() {
             waitingTable.innerHTML = activeLoans.map((book, index) => `
                 <tr>
                     <td><strong>${book.judul}</strong><br><small class="text-muted">${book.kode_buku}</small></td>
-                    <td>Anggota Perpus</td>
+                    <td>${book.peminjam || "Anggota Perpus"}</td>
                     <td>22 Juni 2026</td>
                     <td>29 Juni 2026</td>
                     <td><span class="badge bg-warning text-dark">Dipinjam</span></td>
                     <td class="text-end">
-                        <button class="btn btn-sm btn-success" onclick="alert('Buku ${book.judul} berhasil diterima kembali!')">
+                        <button class="btn btn-sm btn-success" onclick="executeReturnDirectly(${book.id_buku})">
                             <i class="fa-solid fa-check"></i> Terima
                         </button>
                     </td>
@@ -134,10 +176,38 @@ function renderWaitingReturns() {
 
 function handleReturnSubmit(event) {
     event.preventDefault();
-    alert("Konfirmasi pengembalian sukses! Stok buku otomatis bertambah.");
+    const returnSelect = document.getElementById("returnLoanId");
+
+    if (!returnSelect.value) {
+        alert("Mohon pilih data peminjaman terlebih dahulu!");
+        return;
+    }
+    executeReturnDirectly(returnSelect.value);
 }
 
-// === FUNGSI SISI ANGGOTA (SINKRONISASI PENCARIAN & HALAMAN LIST) ===
+function executeReturnDirectly(idBuku) {
+    fetch('/api/pengembalian', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ idBuku: idBuku })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            alert(data.message);
+            populateReturnDropdown();
+            renderWaitingReturns();
+        } else {
+            alert("Gagal memproses aksi: " + data.message);
+        }
+    })
+    .catch(err => {
+        console.error("Koneksi gagal:", err);
+        alert("Terjadi kendala saat menyambung ke server.");
+    });
+}
+
+// === FUNGSI SISI ANGGOTA (DIPERBAIKI AGAR AKURAT MENYARING DATA DARI DB) ===
 function renderLoanTableMember() {
     const myLoanInput = document.getElementById("myLoanName");
     const myLoanList = document.getElementById("myLoanList");
@@ -148,7 +218,6 @@ function renderLoanTableMember() {
 
     const keyword = myLoanInput.value.trim().toLowerCase();
 
-    // Jika kolom pencarian kosong, kembalikan ke petunjuk awal
     if (!keyword) {
         myLoanList.innerHTML = "";
         myLoanHint.classList.remove("d-none");
@@ -159,8 +228,11 @@ function renderLoanTableMember() {
     fetch('/api/buku')
         .then(res => res.json())
         .then(books => {
-            // Filter buku yang sedang dipinjam atau direservasi di database
-            const borrowedBooks = books.filter(b => b.status === "Dipinjam" || b.status === "Reservasi");
+            // Saring berdasarkan nama peminjam asli dari database, bukan tulisan di input text
+            const borrowedBooks = books.filter(b => 
+                (b.status === "Dipinjam" || b.status === "Reservasi") && 
+                b.peminjam && b.peminjam.toLowerCase().includes(keyword)
+            );
 
             if (borrowedBooks.length === 0) {
                 myLoanList.innerHTML = "";
@@ -169,11 +241,9 @@ function renderLoanTableMember() {
                 return;
             }
 
-            // Sembunyikan semua placeholder petunjuk karena data ada
             myLoanHint.classList.add("d-none");
             myLoanEmpty.classList.add("d-none");
 
-            // Bangun komponen tabel Bootstrap dinamis di dalam elemen pembungkus
             myLoanList.innerHTML = `
                 <div class="card section-card p-4">
                     <div class="table-responsive">
@@ -199,7 +269,7 @@ function renderLoanTableMember() {
                                             <strong>${book.judul}</strong><br>
                                             <small class="text-muted">${book.kode_buku}</small>
                                         </td>
-                                        <td>${myLoanInput.value}</td>
+                                        <td><strong>${book.peminjam}</strong></td>
                                         <td>22 Juni 2026</td>
                                         <td>${book.status === 'Dipinjam' ? '29 Juni 2026' : '-'}</td>
                                         <td><span class="badge ${badgeClass}">${book.status}</span></td>
